@@ -5,15 +5,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/rs/cors"
 )
 
 // 　店舗情報の定義
 type ShopInfo struct {
-	Name    string `json:"name"`
-	Address string `json:"address"`
-	Tel     string `json:"tel"`
+	Name     string  `json:"name"`
+	Address  string  `json:"address"`
+	Lat      float64 `json:"lat"`
+	Lng      float64 `json:"lng"`
+	PhotoURL string  `json:"photo_url"`
 }
 
 func main() {
@@ -107,10 +110,16 @@ func extractShops(data map[string]interface{}) []ShopInfo {
 			continue
 		}
 
+		// 緯度経度の変換
+		lat, _ := strconv.ParseFloat(fmt.Sprintf("%v", shopData["lat"]), 64)
+		lng, _ := strconv.ParseFloat(fmt.Sprintf("%v", shopData["lng"]), 64)
+
 		shop := ShopInfo{
-			Name:    fmt.Sprintf("%v", shopData["name"]),
-			Address: fmt.Sprintf("%v", shopData["address"]),
-			Tel:     fmt.Sprintf("%v", shopData["tel"]),
+			Name:     fmt.Sprintf("%v", shopData["name"]),
+			Address:  fmt.Sprintf("%v", shopData["address"]),
+			Lat:      lat,
+			Lng:      lng,
+			PhotoURL: fmt.Sprintf("%v", shopData["photo-pc-l"]),
 		}
 
 		shops = append(shops, shop)
