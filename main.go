@@ -22,7 +22,7 @@ type ShopInfo struct {
 func main() {
 	// APIエンドポイントとパラメータの設定
 	url := "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
-	apiKey := "ab7a2a4435e81ff1"
+	apiKey := ""
 	queryParams := map[string]string{
 		"key":        apiKey,
 		"large_area": "Z011",
